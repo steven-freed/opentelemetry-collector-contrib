@@ -1,0 +1,103 @@
+package redfishreceiver
+
+import "strings"
+
+// Redfish ComputerSystem
+type ComputerSystem struct {
+	Id           string
+	AssetTag     string
+	BiosVersion  string
+	HostName     string
+	Model        string
+	Name         string
+	Manufacturer string
+	SerialNumber string
+	SKU          string
+	SystemType   string
+	PowerState   string // On, Off, Unknown
+	Status       Status
+	Links        struct {
+		Chassis []struct {
+			Ref string `json:"@odata.id"`
+		}
+	}
+}
+
+// Redfish Generic Status
+// State (Enabled, Disabled, Unknown)
+// Health (Critical, OK, Warning)
+type Status struct {
+	State  string
+	Health string
+}
+
+// Redfish Chassis
+type Chassis struct {
+	Id           string
+	AssetTag     string
+	ChassisType  string
+	Manufacturer string
+	Model        string
+	Name         string
+	SKU          string
+	SerialNumber string
+	PowerState   string // On, Off, Unknown
+	Status       Status
+	Thermal      struct {
+		Ref string `json:"@odata.id"`
+	}
+}
+
+type Fan struct {
+	Name         string
+	Reading      *int64
+	ReadingUnits *string
+	Status       Status
+}
+
+type Temperature struct {
+	Name           string
+	ReadingCelsius *float64
+	Status         Status
+}
+
+// Redfish Thermal (Fans, Temperatures, etc.)
+type Thermal struct {
+	Fans         []Fan
+	Temperatures []Temperature
+}
+
+func powerStateToMetric(ps string) int64 {
+	switch strings.ToLower(ps) {
+	case "off":
+		return 0
+	case "on":
+		return 1
+	default:
+		return -1
+	}
+}
+
+func statusHealthToMetric(sh string) int64 {
+	switch strings.ToLower(sh) {
+	case "critical":
+		return 0
+	case "ok":
+		return 1
+	case "warning":
+		return 2
+	default:
+		return -1
+	}
+}
+
+func statusStateToMetric(ss string) int64 {
+	switch strings.ToLower(ss) {
+	case "disabled":
+		return 0
+	case "enabled":
+		return 1
+	default:
+		return -1
+	}
+}
