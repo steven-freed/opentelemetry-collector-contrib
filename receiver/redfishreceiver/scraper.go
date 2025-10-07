@@ -1,4 +1,4 @@
-package redfishreceiver
+package redfishreceiver // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/redfishreceiver"
 
 import (
 	"context"
@@ -18,7 +18,7 @@ import (
 // scraperClient is a struct containing the RedfishClient
 // and the resources it needs to collect.
 type scraperClient struct {
-	*RedfishClient
+	*redfishClient
 	ResourceSet map[Resource]bool
 }
 

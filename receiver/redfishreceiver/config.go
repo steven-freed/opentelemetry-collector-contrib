@@ -1,27 +1,28 @@
-package redfishreceiver
+package redfishreceiver // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/redfishreceiver"
 
 import (
 	"fmt"
 	"time"
 
+	"go.opentelemetry.io/collector/config/configopaque"
 	"go.opentelemetry.io/collector/scraper/scraperhelper"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/redfishreceiver/internal/metadata"
 )
 
-type RedfishConfig struct {
+type redfishConfig struct {
 	Version string `mapstructure:"version"`
 }
 
 type Server struct {
-	Host             string        `mapstructure:"host"`
-	User             string        `mapstructure:"username"`
-	Pwd              string        `mapstructure:"password"`
-	Insecure         bool          `mapstructure:"insecure"`
-	Timeout          string        `mapstructure:"timeout"`
-	Redfish          RedfishConfig `mapstructure:"redfish"`
-	ComputerSystemId string        `mapstructure:"computer_system_id"`
-	Resources        []Resource    `mapstructure:"resources"`
+	Host             string              `mapstructure:"host"`
+	User             string              `mapstructure:"username"`
+	Pwd              configopaque.String `mapstructure:"password"`
+	Insecure         bool                `mapstructure:"insecure"`
+	Timeout          string              `mapstructure:"timeout"`
+	Redfish          redfishConfig       `mapstructure:"redfish"`
+	ComputerSystemId string              `mapstructure:"computer_system_id"`
+	Resources        []Resource          `mapstructure:"resources"`
 }
 
 type Config struct {

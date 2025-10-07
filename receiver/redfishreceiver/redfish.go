@@ -1,4 +1,4 @@
-package redfishreceiver
+package redfishreceiver // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/redfishreceiver"
 
 import (
 	"crypto/tls"
@@ -8,19 +8,21 @@ import (
 	"net/url"
 	"path"
 	"time"
+
+	"go.opentelemetry.io/collector/config/configopaque"
 )
 
-type RedfishClient struct {
+type redfishClient struct {
 	Client           http.Client
 	baseURL          *url.URL
 	redfishVersion   string
 	host             string
 	userName         string
-	password         string
+	password         configopaque.String
 	computerSystemId string
 }
 
-func NewRedfishClient(computerSystemId, user, pwd, addr, redfishVersion string, timeout time.Duration, insecure bool) (*RedfishClient, error) {
+func NewRedfishClient(computerSystemId string, user string, pwd configopaque.String, addr string, redfishVersion string, timeout time.Duration, insecure bool) (*redfishClient, error) {
 	baseURL, err := url.Parse(addr)
 	if err != nil {
 		return nil, err
@@ -31,7 +33,7 @@ func NewRedfishClient(computerSystemId, user, pwd, addr, redfishVersion string, 
 		address = baseURL.Host
 	}
 
-	return &RedfishClient{
+	return &redfishClient{
 		Client: http.Client{
 			Transport: &http.Transport{
 				TLSClientConfig: &tls.Config{InsecureSkipVerify: insecure},
@@ -48,14 +50,14 @@ func NewRedfishClient(computerSystemId, user, pwd, addr, redfishVersion string, 
 	}, nil
 }
 
-func (c *RedfishClient) setHeaders(req *http.Request) {
-	req.SetBasicAuth(c.userName, c.password)
+func (c *redfishClient) setHeaders(req *http.Request) {
+	req.SetBasicAuth(c.userName, string(c.password))
 	req.Header.Set("OData-Version", "4.0")
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("Content-Type", "application/json")
 }
 
-func (c *RedfishClient) GetComputerSystem() (*ComputerSystem, error) {
+func (c *redfishClient) GetComputerSystem() (*computerSystem, error) {
 	url := c.baseURL.ResolveReference(&url.URL{
 		Path: path.Join("/redfish/", c.redfishVersion, "/Systems/", c.computerSystemId),
 	}).String()
@@ -69,14 +71,14 @@ func (c *RedfishClient) GetComputerSystem() (*ComputerSystem, error) {
 		return nil, err
 	}
 	defer resp.Body.Close()
-	var system ComputerSystem
+	var system computerSystem
 	if err = json.NewDecoder(resp.Body).Decode(&system); err != nil {
 		return nil, err
 	}
 	return &system, nil
 }
 
-func (c *RedfishClient) GetChassis(ref string) (*Chassis, error) {
+func (c *redfishClient) GetChassis(ref string) (*chassis, error) {
 	url := c.baseURL.ResolveReference(&url.URL{Path: ref}).String()
 	req, err := http.NewRequest(http.MethodGet, url, nil)
 	if err != nil {
@@ -88,14 +90,14 @@ func (c *RedfishClient) GetChassis(ref string) (*Chassis, error) {
 		return nil, err
 	}
 	defer resp.Body.Close()
-	var chassis Chassis
+	var chassis chassis
 	if err = json.NewDecoder(resp.Body).Decode(&chassis); err != nil {
 		return nil, err
 	}
 	return &chassis, nil
 }
 
-func (c *RedfishClient) GetThermal(ref string) (*Thermal, error) {
+func (c *redfishClient) GetThermal(ref string) (*thermal, error) {
 	url := c.baseURL.ResolveReference(&url.URL{Path: ref}).String()
 	req, err := http.NewRequest(http.MethodGet, url, nil)
 	if err != nil {
@@ -107,7 +109,7 @@ func (c *RedfishClient) GetThermal(ref string) (*Thermal, error) {
 		return nil, err
 	}
 	defer resp.Body.Close()
-	var thermal Thermal
+	var thermal thermal
 	if err = json.NewDecoder(resp.Body).Decode(&thermal); err != nil {
 		return nil, err
 	}

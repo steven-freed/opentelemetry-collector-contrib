@@ -1,8 +1,8 @@
-package redfishreceiver
+package redfishreceiver // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/redfishreceiver"
 
 import "go.opentelemetry.io/collector/pdata/pcommon"
 
-func (s *redfishScraper) scrapeComputerSystem(ts pcommon.Timestamp, baseUrl string, compSys *ComputerSystem) {
+func (s *redfishScraper) scrapeComputerSystem(ts pcommon.Timestamp, baseUrl string, compSys *computerSystem) {
 	s.mb.RecordSystemPowerstateDataPoint(ts,
 		powerStateToMetric(compSys.PowerState),
 		baseUrl,
@@ -49,7 +49,7 @@ func (s *redfishScraper) scrapeComputerSystem(ts pcommon.Timestamp, baseUrl stri
 	)
 }
 
-func (s *redfishScraper) scrapeChassis(ts pcommon.Timestamp, hostName, baseUrl string, chassis *Chassis) {
+func (s *redfishScraper) scrapeChassis(ts pcommon.Timestamp, hostName, baseUrl string, chassis *chassis) {
 	s.mb.RecordChassisPowerstateDataPoint(
 		ts,
 		powerStateToMetric(chassis.PowerState),
@@ -94,7 +94,7 @@ func (s *redfishScraper) scrapeChassis(ts pcommon.Timestamp, hostName, baseUrl s
 	)
 }
 
-func (s *redfishScraper) scrapeFans(ts pcommon.Timestamp, hostName, baseUrl, chassisId string, fans []Fan) {
+func (s *redfishScraper) scrapeFans(ts pcommon.Timestamp, hostName, baseUrl, chassisId string, fans []fan) {
 	for _, fan := range fans {
 		s.mb.RecordFanReadingDataPoint(
 			ts,
@@ -123,7 +123,7 @@ func (s *redfishScraper) scrapeFans(ts pcommon.Timestamp, hostName, baseUrl, cha
 	}
 }
 
-func (s *redfishScraper) scrapeTemperatures(ts pcommon.Timestamp, hostName, baseUrl, chassisId string, temps []Temperature) {
+func (s *redfishScraper) scrapeTemperatures(ts pcommon.Timestamp, hostName, baseUrl, chassisId string, temps []temperature) {
 	for _, temp := range temps {
 		s.mb.RecordTemperatureReadingDataPoint(
 			ts,

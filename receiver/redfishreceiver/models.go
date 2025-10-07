@@ -1,9 +1,9 @@
-package redfishreceiver
+package redfishreceiver // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/redfishreceiver"
 
 import "strings"
 
 // Redfish ComputerSystem
-type ComputerSystem struct {
+type computerSystem struct {
 	Id           string
 	AssetTag     string
 	BiosVersion  string
@@ -15,7 +15,7 @@ type ComputerSystem struct {
 	SKU          string
 	SystemType   string
 	PowerState   string // On, Off, Unknown
-	Status       Status
+	Status       status
 	Links        struct {
 		Chassis []struct {
 			Ref string `json:"@odata.id"`
@@ -26,13 +26,13 @@ type ComputerSystem struct {
 // Redfish Generic Status
 // State (Enabled, Disabled, Unknown)
 // Health (Critical, OK, Warning)
-type Status struct {
+type status struct {
 	State  string
 	Health string
 }
 
 // Redfish Chassis
-type Chassis struct {
+type chassis struct {
 	Id           string
 	AssetTag     string
 	ChassisType  string
@@ -42,29 +42,29 @@ type Chassis struct {
 	SKU          string
 	SerialNumber string
 	PowerState   string // On, Off, Unknown
-	Status       Status
+	Status       status
 	Thermal      struct {
 		Ref string `json:"@odata.id"`
 	}
 }
 
-type Fan struct {
+type fan struct {
 	Name         string
 	Reading      *int64
 	ReadingUnits *string
-	Status       Status
+	Status       status
 }
 
-type Temperature struct {
+type temperature struct {
 	Name           string
 	ReadingCelsius *float64
-	Status         Status
+	Status         status
 }
 
 // Redfish Thermal (Fans, Temperatures, etc.)
-type Thermal struct {
-	Fans         []Fan
-	Temperatures []Temperature
+type thermal struct {
+	Fans         []fan
+	Temperatures []temperature
 }
 
 func powerStateToMetric(ps string) int64 {
