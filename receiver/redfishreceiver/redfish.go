@@ -22,7 +22,7 @@ type redfishClient struct {
 	computerSystemId string
 }
 
-func NewRedfishClient(computerSystemId string, user string, pwd configopaque.String, addr string, redfishVersion string, timeout time.Duration, insecure bool) (*redfishClient, error) {
+func NewRedfishClient(computerSystemId, user string, pwd configopaque.String, addr, redfishVersion string, timeout time.Duration, insecure bool) (*redfishClient, error) {
 	baseURL, err := url.Parse(addr)
 	if err != nil {
 		return nil, err

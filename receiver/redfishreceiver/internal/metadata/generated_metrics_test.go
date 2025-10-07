@@ -134,7 +134,7 @@ func TestMetricsBuilder(t *testing.T) {
 					validatedMetrics["chassis.powerstate"] = true
 					assert.Equal(t, pmetric.MetricTypeGauge, ms.At(i).Type())
 					assert.Equal(t, 1, ms.At(i).Gauge().DataPoints().Len())
-					assert.Equal(t, "Measures the power state of a chassis.", ms.At(i).Description())
+					assert.Equal(t, "Measures the power state of a chassis (-1 unknown, 0 off, 1 on).", ms.At(i).Description())
 					assert.Equal(t, "{powerstate}", ms.At(i).Unit())
 					dp := ms.At(i).Gauge().DataPoints().At(0)
 					assert.Equal(t, start, dp.StartTimestamp())
@@ -176,7 +176,7 @@ func TestMetricsBuilder(t *testing.T) {
 					validatedMetrics["chassis.status.health"] = true
 					assert.Equal(t, pmetric.MetricTypeGauge, ms.At(i).Type())
 					assert.Equal(t, 1, ms.At(i).Gauge().DataPoints().Len())
-					assert.Equal(t, "Measures the health of a chassis.", ms.At(i).Description())
+					assert.Equal(t, "Measures the health of a chassis (-1 unknown, 0 critical, 1 ok, 2 warning).", ms.At(i).Description())
 					assert.Equal(t, "{health}", ms.At(i).Unit())
 					dp := ms.At(i).Gauge().DataPoints().At(0)
 					assert.Equal(t, start, dp.StartTimestamp())
@@ -218,7 +218,7 @@ func TestMetricsBuilder(t *testing.T) {
 					validatedMetrics["chassis.status.state"] = true
 					assert.Equal(t, pmetric.MetricTypeGauge, ms.At(i).Type())
 					assert.Equal(t, 1, ms.At(i).Gauge().DataPoints().Len())
-					assert.Equal(t, "Measures the state of a chassis.", ms.At(i).Description())
+					assert.Equal(t, "Measures the state of a chassis (-1 unknown, 0 disabled, 1 enabled).", ms.At(i).Description())
 					assert.Equal(t, "{state}", ms.At(i).Unit())
 					dp := ms.At(i).Gauge().DataPoints().At(0)
 					assert.Equal(t, start, dp.StartTimestamp())
@@ -284,7 +284,7 @@ func TestMetricsBuilder(t *testing.T) {
 					validatedMetrics["fan.status.health"] = true
 					assert.Equal(t, pmetric.MetricTypeGauge, ms.At(i).Type())
 					assert.Equal(t, 1, ms.At(i).Gauge().DataPoints().Len())
-					assert.Equal(t, "Measures the health of a chassis fan.", ms.At(i).Description())
+					assert.Equal(t, "Measures the health of a chassis fan (-1 unknown, 0 critical, 1 ok, 2 warning).", ms.At(i).Description())
 					assert.Equal(t, "{health}", ms.At(i).Unit())
 					dp := ms.At(i).Gauge().DataPoints().At(0)
 					assert.Equal(t, start, dp.StartTimestamp())
@@ -308,7 +308,7 @@ func TestMetricsBuilder(t *testing.T) {
 					validatedMetrics["fan.status.state"] = true
 					assert.Equal(t, pmetric.MetricTypeGauge, ms.At(i).Type())
 					assert.Equal(t, 1, ms.At(i).Gauge().DataPoints().Len())
-					assert.Equal(t, "Measures the state of a chassis fan.", ms.At(i).Description())
+					assert.Equal(t, "Measures the state of a chassis fan (-1 unknown, 0 disabled, 1 enabled).", ms.At(i).Description())
 					assert.Equal(t, "{state}", ms.At(i).Unit())
 					dp := ms.At(i).Gauge().DataPoints().At(0)
 					assert.Equal(t, start, dp.StartTimestamp())
@@ -332,7 +332,7 @@ func TestMetricsBuilder(t *testing.T) {
 					validatedMetrics["system.powerstate"] = true
 					assert.Equal(t, pmetric.MetricTypeGauge, ms.At(i).Type())
 					assert.Equal(t, 1, ms.At(i).Gauge().DataPoints().Len())
-					assert.Equal(t, "Measures the power state of a system.", ms.At(i).Description())
+					assert.Equal(t, "Measures the power state of a system (-1 unknown, 0 off, 1 on).", ms.At(i).Description())
 					assert.Equal(t, "{powerstate}", ms.At(i).Unit())
 					dp := ms.At(i).Gauge().DataPoints().At(0)
 					assert.Equal(t, start, dp.StartTimestamp())
@@ -377,7 +377,7 @@ func TestMetricsBuilder(t *testing.T) {
 					validatedMetrics["system.status.health"] = true
 					assert.Equal(t, pmetric.MetricTypeGauge, ms.At(i).Type())
 					assert.Equal(t, 1, ms.At(i).Gauge().DataPoints().Len())
-					assert.Equal(t, "Measures the health of a system.", ms.At(i).Description())
+					assert.Equal(t, "Measures the health of a system (-1 unknown, 0 critical, 1 ok, 2 warning).", ms.At(i).Description())
 					assert.Equal(t, "{health}", ms.At(i).Unit())
 					dp := ms.At(i).Gauge().DataPoints().At(0)
 					assert.Equal(t, start, dp.StartTimestamp())
@@ -422,7 +422,7 @@ func TestMetricsBuilder(t *testing.T) {
 					validatedMetrics["system.status.state"] = true
 					assert.Equal(t, pmetric.MetricTypeGauge, ms.At(i).Type())
 					assert.Equal(t, 1, ms.At(i).Gauge().DataPoints().Len())
-					assert.Equal(t, "Measures the state of a system.", ms.At(i).Description())
+					assert.Equal(t, "Measures the state of a system (-1 unknown, 0 disabled, 1 enabled).", ms.At(i).Description())
 					assert.Equal(t, "{state}", ms.At(i).Unit())
 					dp := ms.At(i).Gauge().DataPoints().At(0)
 					assert.Equal(t, start, dp.StartTimestamp())
@@ -491,7 +491,7 @@ func TestMetricsBuilder(t *testing.T) {
 					validatedMetrics["temperature.status.health"] = true
 					assert.Equal(t, pmetric.MetricTypeGauge, ms.At(i).Type())
 					assert.Equal(t, 1, ms.At(i).Gauge().DataPoints().Len())
-					assert.Equal(t, "Measures the health of a chassis temperature.", ms.At(i).Description())
+					assert.Equal(t, "Measures the health of a chassis temperature (-1 unknown, 0 critical, 1 ok, 2 warning).", ms.At(i).Description())
 					assert.Equal(t, "{health}", ms.At(i).Unit())
 					dp := ms.At(i).Gauge().DataPoints().At(0)
 					assert.Equal(t, start, dp.StartTimestamp())
@@ -515,7 +515,7 @@ func TestMetricsBuilder(t *testing.T) {
 					validatedMetrics["temperature.status.state"] = true
 					assert.Equal(t, pmetric.MetricTypeGauge, ms.At(i).Type())
 					assert.Equal(t, 1, ms.At(i).Gauge().DataPoints().Len())
-					assert.Equal(t, "Measures the state of a chassis temperature.", ms.At(i).Description())
+					assert.Equal(t, "Measures the state of a chassis temperature (-1 unknown, 0 disabled, 1 enabled).", ms.At(i).Description())
 					assert.Equal(t, "{state}", ms.At(i).Unit())
 					dp := ms.At(i).Gauge().DataPoints().At(0)
 					assert.Equal(t, start, dp.StartTimestamp())

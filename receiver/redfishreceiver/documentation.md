@@ -14,7 +14,7 @@ metrics:
 
 ### chassis.powerstate
 
-Measures the power state of a chassis.
+Measures the power state of a chassis (-1 unknown, 0 off, 1 on).
 
 | Unit | Metric Type | Value Type | Stability |
 | ---- | ----------- | ---------- | --------- |
@@ -37,7 +37,7 @@ Measures the power state of a chassis.
 
 ### chassis.status.health
 
-Measures the health of a chassis.
+Measures the health of a chassis (-1 unknown, 0 critical, 1 ok, 2 warning).
 
 | Unit | Metric Type | Value Type | Stability |
 | ---- | ----------- | ---------- | --------- |
@@ -60,7 +60,7 @@ Measures the health of a chassis.
 
 ### chassis.status.state
 
-Measures the state of a chassis.
+Measures the state of a chassis (-1 unknown, 0 disabled, 1 enabled).
 
 | Unit | Metric Type | Value Type | Stability |
 | ---- | ----------- | ---------- | --------- |
@@ -100,7 +100,7 @@ Measures the reading of a chassis fan.
 
 ### fan.status.health
 
-Measures the health of a chassis fan.
+Measures the health of a chassis fan (-1 unknown, 0 critical, 1 ok, 2 warning).
 
 | Unit | Metric Type | Value Type | Stability |
 | ---- | ----------- | ---------- | --------- |
@@ -117,7 +117,7 @@ Measures the health of a chassis fan.
 
 ### fan.status.state
 
-Measures the state of a chassis fan.
+Measures the state of a chassis fan (-1 unknown, 0 disabled, 1 enabled).
 
 | Unit | Metric Type | Value Type | Stability |
 | ---- | ----------- | ---------- | --------- |
@@ -134,7 +134,7 @@ Measures the state of a chassis fan.
 
 ### system.powerstate
 
-Measures the power state of a system.
+Measures the power state of a system (-1 unknown, 0 off, 1 on).
 
 | Unit | Metric Type | Value Type | Stability |
 | ---- | ----------- | ---------- | --------- |
@@ -158,7 +158,7 @@ Measures the power state of a system.
 
 ### system.status.health
 
-Measures the health of a system.
+Measures the health of a system (-1 unknown, 0 critical, 1 ok, 2 warning).
 
 | Unit | Metric Type | Value Type | Stability |
 | ---- | ----------- | ---------- | --------- |
@@ -182,7 +182,7 @@ Measures the health of a system.
 
 ### system.status.state
 
-Measures the state of a system.
+Measures the state of a system (-1 unknown, 0 disabled, 1 enabled).
 
 | Unit | Metric Type | Value Type | Stability |
 | ---- | ----------- | ---------- | --------- |
@@ -223,7 +223,7 @@ Measures the reading of a chassis temperature.
 
 ### temperature.status.health
 
-Measures the health of a chassis temperature.
+Measures the health of a chassis temperature (-1 unknown, 0 critical, 1 ok, 2 warning).
 
 | Unit | Metric Type | Value Type | Stability |
 | ---- | ----------- | ---------- | --------- |
@@ -240,7 +240,7 @@ Measures the health of a chassis temperature.
 
 ### temperature.status.state
 
-Measures the state of a chassis temperature.
+Measures the state of a chassis temperature (-1 unknown, 0 disabled, 1 enabled).
 
 | Unit | Metric Type | Value Type | Stability |
 | ---- | ----------- | ---------- | --------- |
